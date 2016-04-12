@@ -51,10 +51,12 @@ are the subject of ongoing research. Urban growth scenario simulation is a power
 for exploring these impacts and empowering planners to make informed decisions. 
 We present FUTURES (FUTure Urban -- Regional Environment Simulation) -- a patch-based,
 stochastic, multi-level land change modeling framework as a case showing how
-an originally closed and inaccessible model can benefit from integration into open source GIS.
+what was once a
+%an originally 
+closed and inaccessible model benefited from integration with open source GIS.
 We will describe our motivation for releasing this project as open source
 and the advantages of integrating it with GRASS GIS, a free, libre and open source GIS
-and research platform for geospatial domain.  
+and research platform for the geospatial domain.  
 GRASS GIS provides efficient libraries for FUTURES model development
 as well as standard GIS tools and graphical user interface for model users.  
 Releasing FUTURES as a GRASS GIS add-on simplifies the distribution of FUTURES
@@ -73,7 +75,7 @@ modify the model for their applications.
 
 }
 
-\keywords{}
+\keywords{GRASS GIS, FUTURES, urbanization, open science, simulation}
 
 \maketitle
 
@@ -82,15 +84,15 @@ modify the model for their applications.
 \section{INTRODUCTION}\label{INTRODUCTION}
 
 Population growth in cities worldwide drives changes in land use
-resulting often in negative impacts on the environment people live in, and
-challenging the resilience of local ecosystems.
+often negatively impacting the environments in which people live and undermining %challenging
+the resilience of local ecosystems.
 The need to understand the trade-offs urban planners are facing
 gave rise to a number of different land change simulation models,
-which proved to be powerful tools to explore
+which proved to be powerful tools for exploring
 alternative scenarios and their impacts on various aspects of human-environmental systems
 \cite{chaudhuri2013sleuth,verburg2002modeling,sohl2007fore,waddell2002urbansim}.
-Despite the influence of
-spatial structure and connectivity of urbanizing landscape on
+Despite the influence of the spatial structure and connectivity 
+of urbanizing landscapes on
 biodiversity, water quality, or flood risks \cite{alberti2005effects},
 most urban growth models are based on cell-level conversions and 
 have not focused on generating realistic spatial structures across scales \cite{jantz2005analysis}.
@@ -99,25 +101,39 @@ FUTURES (FUTure Urban-Regional Environment Simulation), a patch-based, multileve
 modeling framework for simulating the emergence of landscape spatial structure
 in urbanizing regions \cite{Meentemeyer2012}.
 %
-FUTURES model was successfully applied in several cases, for studying land development dynamics in the rapidly
-expanding metropolitan region of Charlotte, North Carolina \cite{Meentemeyer2012}, and the analysis of the impacts
+The FUTURES model was successfully applied in several cases 
+including a study of land development dynamics in the rapidly
+expanding metropolitan region of Charlotte, North Carolina \cite{Meentemeyer2012} and an analysis of the impacts
 of urbanization on natural resources under different conservation strategies \cite{Dorning2015}.
-Most recently, FUTURES was coupled with ecosystem services models to examine the impacts of urbanization to several
-ecosystem services and their trad-offs in Western North Carolina \cite{Brian2016}.
+Most recently, FUTURES was coupled with ecosystem services models to examine the impacts of urbanization on several
+ecosystem services and their trade-offs in Western North Carolina \cite{Brian2016}.
 
-Since complex human-nature systems cannot be studied in separation anymore,
-interdisciplinary researchers have to couple existing simulation models,
-where land change modeling plays often a crucial role.
-Previous FUTURES applications revealed the potential of the model
-to be applied in a wide range of cases with different study systems and aims.
-However, the developed model was a prototype not suitable to be shared
-with scientific community. Large ``technical depth'' \cite{easterbrook2014open} which
-accumulated during model development made it difficult to add new features and run the simulation at larger scales.
+%Since the elements of complex human-nature systems should not be studied in isolation anymore, interdisciplinary researchers are coupling existing simulation models.
+In order to study the complex interactions between human and natural systems,
+interdisciplinary researchers are coupling %have to couple
+existing simulation models.
+Land change modeling plays often a crucial role in these coupled models.
+%Previous applications of FUTURES revealed the potential of the model to be applied in a wide range of cases with different study systems and aims.
+Previous case studies with FUTURES have demonstrated 
+that the model can be applied to a wide range of cases with different study systems and aims.
+%
+The initial implementation of model, however, was a prototype that was not ready %suitable 
+to be shared
+with scientific community. 
+%
+The modeled accumulated too much ``technical depth'' \cite{easterbrook2014open} during its initial development, 
+making it difficult to add new features or run the simulation at larger scales.
+%
+%The large ``technical depth'' \cite{easterbrook2014open} which accumulated during model development made it difficult to add new features and run the simulation at larger scales.
+%
 In order to continue adding new capabilities to FUTURES and to promote
-its usage both inside and outside of land use community,
-we decided to revise the FUTURES model implementation
+its usage 
+both inside and outside of 
+%both within and beyond
+the land use community,
+we decided to revise the implementation of the FUTURES model 
 and develop a new version which would be (a) more efficient and scalable, 
-(b) as easy to use as possible for wider audience and (c)
+(b) as easy to use as possible for a wider audience and (c)
 fully open source and maintainable in the long run.
 To achieve these goals we 
 decided that instead of keeping FUTURES as a standalone application,
@@ -125,20 +141,26 @@ we would take advantage of existing geospatial software and integrate FUTURES
 into open source GRASS GIS \cite{Neteler08}.
 By using GRASS GIS' efficient geospatial libraries
 we can develop better and higher-level code.
-In addition to releasing the
-actual code, providing scientific software to community as open
-source entails providing documentation, tutorials, installation
-instructions, binaries and support, all of which require considerable effort.
-By using existing GRASS GIS' infrastructure we could focus on developing the actual materials
+%
+Providing open source software to the scientific community entails more than just releasing the actual code -- 
+documentation, tutorials, installation
+instructions, binaries and support are also needed 
+and require considerable effort. % Consider explaining why these things are needed
+%
+%In addition to releasing the
+%actual code, providing scientific software to community as open
+%source entails providing documentation, tutorials, installation
+%instructions, binaries and support, all of which require considerable effort.
+%
+By using GRASS GIS' existing infrastructure we could focus on developing the actual materials
 instead of managing our own server infrastructure.
 
-In this article we present a new version of FUTURES urban growth model
-available as \emph{r.futures} module set from GRASS GIS add-on repository.
-New version of FUTURES
-streamlines data processing, provides opportunities to study urbanization on megaregion scales,
-and allows for more reproducible research in land change community. 
-We demonstrate the new version of FUTURES on a case study of 
-Asheville metropolitan area in North Carolina, USA.
+In this article we present a new version of the FUTURES urban growth model that is 
+available as the \emph{r.futures} module set from the GRASS GIS add-on repository.
+This new version of FUTURES
+streamlines data processing, provides opportunities to study urbanization on mega-regional scales, 
+and allows for more reproducible research in the land change community. 
+We demonstrate this new version of FUTURES with a case study of the Asheville metropolitan area in North Carolina, USA.
 
 
 
@@ -193,15 +215,17 @@ is a stochastic, patched-based model
 for projecting landscape patterns of urban growth \cite{Meentemeyer2012}.
 FUTURES has a modular structure consisting of 3 main submodels: DEMAND, POTENTIAL and
 PGA (patch-growing algorithm), see Figure \ref{fig:schema}.
-Land conversion is driven by projected population demand computed by DEMAND submodel,
-and is spatially defined by probability surface derived by POTENTIAL
+Land conversion is driven by projected population demand computed by the DEMAND submodel,
+and is spatially defined by a probability surface derived by  the POTENTIAL submodel
 from multiple environmental and socio-economic predictors.
 The population demand and the effects of land change drivers can vary in space by subregions,
 such as jurisdictional units, allowing projections across heterogeneous landscape.
-FUTURES main strength lies in realistic modeling of the 
-spatial structure of urban change by growing
-patches parametrized by size and compactness calibrated based on historical data.
-For detailed explanation of the FUTURES components, please refer to Meentemeyer et al. (2013).
+FUTURES main strength lies in realistically modeling the 
+spatial structure of urban change by growing patches 
+that are
+parameterized by size and compactness 
+and calibrated using historical data.
+For a detailed explanation of FUTURES' components, please refer to Meentemeyer et al. (2013).
 
 \begin{figure}[h!]
  \centering
@@ -217,82 +241,108 @@ The original implementation of FUTURES consisted mainly of the patch-growing
 algorithm, a standalone program written in a mixture of C and C++.
 The PGA program itself utilized inefficient algorithms and required raster data in ASCII
 format as input leading to very slow initialization. % such as linear search in a long sorted list.
-DEMAND submodel was computed in a spreadsheet and POTENTIAL coefficents
+The DEMAND submodel was computed in a spreadsheet and POTENTIAL coefficents
 were derived using R statistical software. No official
 implementation of these submodels existed so each researcher
-developed a different workflow making the verification of their steps
-by peers difficult.
+developed a different workflow. This made it difficult for peers to verify each other's work. 
 %
 Several scripts for calibrating patch 
 characteristics derived with FRAGSTATS \cite{fragstats} existed, however these tools
-were written for one specific case and directory layout of the author,
-in too low-level language for that application.
+were written 
+in an unnecessarily low-level language
+for a specific case 
+using the author's directory layout.
+%in too low-level a language for the application.
 % Data preprocessing required significant amount of time,
 % as little automation was done. 
 % With little to build upon, we wrote a new implementation of the FUTURES components,
 % with the exception of the core PGA program which we improved on significantly.
 
 When revising the original implementation of FUTURES we identified
-several issues which needed to be addressed by the new version.
+several issues which needed to be addressed. %by the new version.
 First, it is important to follow best practices for scientific computing \cite{wilson2014best}
-including usage of versioning system, writing documentation and testing.
-Then we wanted to minimize tasks previously done manually in order to make
-them efficient, but also to avoid errors which are often difficult to detect.
-When automating the tasks we had to find a compromise between keeping the workflow flexible
-and designing it to be simple and efficient.
-Further, we focused on making FUTURES scalable for running large scale applications
-on a relatively fine spatial resolution.
+including use of a versioning system, writing documentation and testing.
+We also wanted to minimize tasks that had been done manually in order to make the process more efficient and avoid errors 
+that are often difficult to detect.
+%When automating tasks we had to find a compromise between keeping the workflow flexible and designing it to be simple and efficient.
+When automating tasks 
+we had to compromise between 
+the flexibility and simplicity %efficiency
+of the workflow.
+%
+We also focused on making FUTURES scalable 
+%for running
+so that it can run
+large scale applications
+at a relatively fine spatial resolution.
 Finally, we designed FUTURES to be more user-friendly and easy to test so that
-anyone can confidently apply it for their research.
-
+anyone can confidently apply it to their research.
 
 
 \section{INTEGRATION IN GRASS GIS}
 GRASS GIS has had a long history as a platform for scientific models \cite{chemin2015grass}.
 As an open source GIS used by researchers worldwide and one of the founding projects of OSGeo,
 GRASS GIS provides a stable environment for the development of
-scientific models studying problems from various domains
-including geomorphology, hydrology, planetary science, landscape ecology, hazard mapping, archaeology, renewable energy 
-or transportation.
-Thanks to the numerous scientist and developers, GRASS GIS today provides a large spectrum of geospatial modules
+scientific models 
+for studying problems from various domains
+including geomorphology, hydrology, planetary science, landscape ecology, hazard mapping, archaeology, renewable energy and transportation.
+Thanks to the numerous scientist and developers who have been involved, GRASS GIS today provides a large spectrum of geospatial modules
 ranging from basic GIS functionality to highly specialized models.
-Most of the specialized tools are not part of standard GRASS GIS installation
-but are easily accessible from add-on repository.
+Most of the specialized tools are not part of standard GRASS GIS installations,
+but are easily accessible from the add-on repository.
 
-Our decision to integrate FUTURES into GRASS GIS as an add-on is
-based on several reasons, where some are specific to FUTURES but others would be applicable to any
-spatial scientific model.
-First, integration into GIS equips both users and developers
-with many standard geospatial tools which simplify implementation of a model,
-and streamlines pre- and post-processing and visualization.
-From the point of view of the model developer, GRASS provides
-raster library for highly efficient data reading and writing.
-FUTURES therefore does not have to read in ASCII files anymore,
+The were several reasons for our decision to integrate FUTURES into GRASS GIS as an add-on. Some of these reasons were specific to FUTURES, but others apply to any spatial scientific model.
+%
+%Our decision to integrate FUTURES into GRASS GIS as an add-on was based on several reasons, some of which are specific to FUTURES %but others would be applicable to any spatial scientific model.
+%
+Integrating a model into GIS gives both users and developers
+a wide array of standard geospatial tools that simplify the implementation of a model,
+and streamline pre- and post-processing and visualization.
+%
+%First, integration into GIS equips both users and developers with many standard geospatial tools which simplify implementation of a model, and streamlines pre- and post-processing and visualization.
+%
+%From the point of view of the model developer, 
+GRASS GIS provides
+model developers
+a raster library for highly efficient data reading and writing.
+This means that FUTURES no longer has to read in ASCII files,
 significantly reducing time needed for initialization.
-Furthermore, raster data from FUTURES simulation are efficiently compressed.
+Furthermore, raster data from FUTURES simulations are efficiently compressed.
 Despite ever increasing disk space, it is still quite important to reduce the file size, especially for
-stochastic spatio-temporal simulations which are typically generating huge datasets.
-To achieve best speed performance,
+stochastic spatio-temporal simulations, which typically generate huge datasets.
+In order to achieve the best speed performance,
 most GRASS GIS functionality is implemented in C.
-We could therefore take advantage of the fact that FUTURES was originally written
-in a mixture of C and C++ and proceed with the code integration without major rewriting.
-For portability reasons we later decided to use C99 standard.
-Beside C and C++ as the preferred languages for computationally expensive algorithms,
-GRASS GIS supports Python as the main scripting language. This is crucial
-for many FUTURES data preparation steps which need to be automated.
-Both users and developer can appreciate GRASS' automatic generation of
+Because of this, we could easily integrate FUTURES 
+%C and C++ code 
+code, written in a mix of C and C++, 
+without major rewriting. 
+%We could, therefore, take advantage of the fact that FUTURES was originally written in a mixture of C and C++ and proceed with code integration without major rewriting.
+For portability reasons we later decided to use the C99 standard.
+While C and C++ are the preferred languages for computationally expensive algorithms,
+GRASS GIS also supports Python as the primary scripting language. 
+%This is crucial for the many steps of FUTURES data preparation that need to be automated.
+This is crucial 
+for the many steps of FUTURES data preparation 
+that need to be automated.
+%Both users and developers can appreciate GRASS GIS' automatic generation of command line, Python and graphical use interfaces (GUI).
+Both users and developers 
+can appreciate GRASS GIS' automatic generation of
 command line, Python and graphical use interfaces (GUI).
+%By one simple definition of module options in C or Python modules we can call the same module from a GUI dialog, a Python or Bash script.
 By one simple definition of module options in C or Python modules
 we can call the same module from a GUI dialog, a Python or Bash script.
-Having a graphical interface is crucial to make FUTURES easy to use,
-especially for users on Windows platform. However, for more advanced applications
-where FUTURES would run in parallel on a high performance computer,
-we need Python or Bash interface.
-GRASS GIS provides infrastructure for publishing and distribution of
+%Having a graphical interface is crucial for making FUTURES easy to use, especially for users on the Windows platform. 
+Having a graphical interface is crucial for making FUTURES easy to use,
+especially for users on the Windows platform. 
+%However, for more advanced applications where FUTURES would run in parallel on a high performance computer, we need a Python or Bash interface.
+A Python or Bash interface is needed for more advanced applications where FUTURES would run in parallel on a high performance computer.
+%
+GRASS GIS provides infrastructure for publishing and distributing
 models to users on all major platforms.
+%
 Models and tools in GRASS GIS Add-on repository\footnote{\url{https://grass.osgeo.org/download/addons/}}
 can be easily browsed and installed including their documentation,
-which relieves researchers willing to share their models of the burden of maintaining necessary infrastructure.
+which relieves researchers who willing to share their models of the burden of maintaining necessary infrastructure.
 
 
 
@@ -300,18 +350,18 @@ which relieves researchers willing to share their models of the burden of mainta
 \subsection{Implementation}
 We implemented FUTURES as a set of GRASS GIS modules starting with a common prefix \emph{r.futures}:
 \begin{itemize}[noitemsep,nolistsep]
- \item \emph{r.futures.demand} extrapolates area of developed land from population trends and projections,
- \item \emph{r.futures.devpressure} computes development pressure predictor,
- \item \emph{r.futures.potential} models the development probability surface through multi level logistic regression,
+ \item \emph{r.futures.demand} extrapolates the area of developed land from population trends and projections,
+ \item \emph{r.futures.devpressure} computes the development pressure predictor,
+ \item \emph{r.futures.potential} models the development probability surface through multi-level logistic regression,
  \item \emph{r.futures.calib} calibrates patch sizes and shapes,
- \item \emph{r.futures.pga} simulates urban development using patch growing algorithm.
+ \item \emph{r.futures.pga} simulates urban development using the patch growing algorithm.
 \end{itemize}
-In addition, we implemented add-on \emph{r.sample.category} needed for the workflow, but
-since its functionality is not specific to FUTURES, we kept it separate.
-All these add-ons can be conveniently installed from GRASS GIS from GUI or command line%
+In addition, we implemented the add-on \emph{r.sample.category} needed for the workflow. 
+Since its functionality is not specific to FUTURES, we kept it separate.
+All of these add-ons can be conveniently installed from GRASS GIS using the GUI or command line%
 \footnote{\texttt{g.extension r.futures}}. 
-Each individual add-on has its manual page accessible both online and offline.
-Figure \ref{fig:schemaGRASS} shows FUTURES workflow and inputs needed for each tool.
+Each individual add-on has a manual page accessible both online and offline.
+Figure \ref{fig:schemaGRASS} shows FUTURES workflow and the inputs needed for each tool.
 In the following sections we describe the developed tools, their functionality and implementation in GRASS GIS.
 
 
@@ -709,7 +759,7 @@ data as a step towards more reproducible research in land change science.
 
 \section*{ACKNOWLEDGEMENTS}\label{ACKNOWLEDGEMENTS}
 We would like to acknowledge Monica Dorning and Douglas Shoemaker
-for discussing with us the original model implementation.
+for discussing with us the original model implementation and Brendan Harmon for proof-reading the manuscript.
 
 % {%\footnotesize
 % 	\begin{spacing}{0.9}% tune the size by altering the parameter
