@@ -221,7 +221,7 @@ ranging from basic GIS functionality to highly specialized models.
 Most of the specialized tools are not part of standard GRASS GIS installations,
 but are easily accessible from the add-on repository.
 
-The were several reasons for our decision to integrate FUTURES into GRASS GIS as an add-on. Some of these reasons were specific to FUTURES, but others apply to any spatial, scientific model.
+There were multiple reasons for our decision to integrate FUTURES into GRASS GIS as an add-on. Some of these reasons were specific to FUTURES, but others apply to any spatial, scientific model.
 Integrating a model into GIS gives both users and developers
 a wide array of standard geospatial tools that simplify the implementation of a model,
 and streamline pre- and post-processing and visualization.
@@ -343,7 +343,7 @@ larger regions than the previous tool.
 
 \subsubsection{r.futures.potential}
 uses multilevel logistic regression  to model development
-suitability based on environmental, infrastructural, and socio-economic predictors such as distance to roads.
+suitability based on environmental, infrastructural, and socio-economic predictors such as distance to roads or topographic slope.
 We randomly sample these predictors and the observed change from undeveloped to developed cells
 to estimate the coefficients of the multilevel logistic regression.
 The core of this
@@ -356,7 +356,7 @@ and chaining of modules.
 The coupling between R, Python and GRASS GIS
 is intentionally very loose to make the workflow possible in the Windows environment
 where some of the other, more elegant, options such as
-rpy2\footnote{Python package for using R from Python \url{http://rpy2.bitbucket.org/}} are complicated to use.
+rpy2\footnote{rpy2 is a Python package for using R from Python (\url{http://rpy2.bitbucket.org/})} are complicated to use.
 We performed stratified sampling of observed new development and predictors using GRASS GIS add-on \emph{r.sample.category}. 
 Although we developed this add-on for urban growth modeling with FUTURES,
 its application is much broader. 
@@ -365,7 +365,7 @@ In order to encourage its use in other applications we made it a general module 
 \subsubsection{r.futures.pga}
 is the main engine of FUTURES -- it simulates urban growth using inputs from the
 DEMAND and POTENTIAL submodels.
-The patch growing algorithm (PGA) stochastically allocates
+The patch growing algorithm (PGA) sto\-chasti\-cally allocates
 a seed for new development across the development suitability surface,
 challenges the seed by comparing it with a random number between 0 and 1, and
 then grows a discrete patch from the seed if it survives \cite{Meentemeyer2012}. 
@@ -514,8 +514,7 @@ In addition to these predictors, we included also development pressure,
  a special, dynamic predictor that is
  updated during the simulation based on new simulated development to enable positive feedback.
 We computed the initial development pressure raster
-with \emph{r.futures.devpressure}; its subsequent updates are performed in memory during the simulation
-and statistical model selection.
+with \emph{r.futures.devpressure}; its subsequent updates are performed in memory during the simulation.
 
 \begin{table}[htb]
  \centering
@@ -557,7 +556,7 @@ Having collected all necessary input data, we ran
 \emph{r.futures.pga} with a 1 year time step until 2035 for the entire study region at 30 m resolution.
 To account for different future policies regarding new development, we explored
 scenarios altering the site suitability to encourage infill or sprawl by changing
-incentive\_power parameter of \emph{r.futures.pga}. This values transforms
+\texttt{incentive\_power} parameter of \emph{r.futures.pga}. This value transforms
 the probability $p$ a cell is developed to $p^x$ where $x = 1$ represents status quo,
 higher values of $x$ result in infill and lower values in sprawl.
 In addition to the status quo we simulated scenarios with $x$ equals 0.25, 0.5, 2 and 4.
@@ -604,9 +603,6 @@ this simulation is an
 ``embarrassingly parallel''  problem \cite{herlihy2012art}
 in which the computation can easily be distributed across multiple computer cores.
 
-The input data and instructions to run the model are available as part of material
-developed for the US-IALE 2016 Annual Meeting workshop on FUTURES\footnote{\url{https://grasswiki.osgeo.org/wiki/Workshop_on_urban_growth_modeling_with_FUTURES}}.
-
 \begin{table}[htp]
  \centering
 \begin{center}
@@ -625,12 +621,17 @@ r.futures  & 0.86 GB & 19 s & 1 h 20 min\\
  \label{tab:benchmark}
 \end{table}
 
+The input data and instructions to run the model are available as part of material
+developed for the US-IALE 2016 Annual Meeting workshop on FUTURES\footnote{\url{https://grasswiki.osgeo.org/wiki/Workshop_on_urban_growth_modeling_with_FUTURES}}.
+
+
+
 
 \section{Discussion}
 The new FUTURES framework is split into independent GRASS GIS modules
 so that the modeling workflow is flexible and extendable.
 By using standardized inputs and outputs (raster layers and CSV files)
-and the interface described
+and described interface 
 we allow FUTURES' users to replace DEMAND and POTENTIAL implementations
 by their own tools, which may be better suited to the characteristics and datasets available for their study systems.
 We ran all previous studies on county level at 30 m resolution.
