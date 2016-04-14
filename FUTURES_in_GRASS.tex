@@ -19,7 +19,6 @@
 
 
 \begin{document}
-
 \title{Open source approach to urban growth simulation}
 
 \author{
@@ -481,6 +480,15 @@ selected either linear or logarithmic relations % ($y = a \ln(x) + c$)
 for each county, where the function coefficients were  automatically determined using linear regression and non-linear least squares optimization 
 in \emph{r.futures.demand} (Figure \ref{fig:demand}).
 
+
+\begin{figure*}[tbh]
+ \centering
+ \includegraphics[width=2.0\columnwidth]{./figures/results_maps.pdf}
+ \caption{Results of three realizations of multiple stochastic runs with different scenarios.
+ Depending on the scenario, simulated development is more diffuse (a) or more compact (c).}
+ \label{fig:results}
+\end{figure*}
+
 \subsubsection{POTENTIAL}
 We used multilevel logistic regression to predict
 where new development happens based on
@@ -556,14 +564,7 @@ higher values of $x$ result in infill and lower values in sprawl.
 In addition to the status quo we simulated scenarios with $x$ equals 0.25, 0.5, 2 and 4.
 We repeated each scenario 50 times to account for the model's stochastic behavior.
 
-\begin{figure}[!ht]
- \centering
- \includegraphics[width=0.9\columnwidth]{./figures/converted_land_new.pdf}
- \caption{Area in km$^2$ of converted land from forest (green) and farmland (yellow) to urban
- differs for urban sprawl and infill scenarios. Numbers $0.25$ to $4$ represent the exponent $x$ which
- transforms development probability $p$ to $p^x$.}
- \label{fig:results_plot}
-\end{figure}
+
 
 \subsection{Results}
 The resulting development patterns of three realizations of the random runs
@@ -581,7 +582,14 @@ Status quo scenario leads to the smallest difference between the areas converted
 Interestingly, infill scenario develops the forested area in a similar way as sprawl does, which 
 is not surprising considering developed areas are largely surrounded by forest patches.
 
-
+\begin{figure}[!ht]
+ \centering
+ \includegraphics[width=0.9\columnwidth]{./figures/converted_land_new.pdf}
+ \caption{Area in km$^2$ of converted land from forest (green) and farmland (yellow) to urban
+ differs for urban sprawl and infill scenarios. Numbers $0.25$ to $4$ represent the exponent $x$ which
+ transforms development probability $p$ to $p^x$.}
+ \label{fig:results_plot}
+\end{figure}
 
 
 Table \ref{tab:benchmark} shows the computational resources
