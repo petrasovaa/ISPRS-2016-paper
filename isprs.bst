@@ -878,7 +878,7 @@ FUNCTION {phdthesis}
     { format.btitle "title" output.check }
   if$
   new.block
-  "PhD thesis" format.thesis.type output.nonnull
+  "Doctoral dissertation" format.thesis.type output.nonnull
   school "school" output.check
   address output
   new.block
