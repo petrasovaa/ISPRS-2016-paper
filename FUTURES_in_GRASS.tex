@@ -41,7 +41,7 @@ R. K. Meentemeyer\textsuperscript{a,c}
 
 % \commission{VI, }{VI} %This field is optional.
 % \workinggroup{VI/4} %This field is optional.
-\icwg{Special Session: SpS 10 - FOSS4G: FOSS4G Session (coorganized with OSGeo)}
+\icwg{}
 
 \abstract
 {
@@ -64,14 +64,24 @@ on a case study in Asheville, North Carolina.
 The developed dataset and tutorial for this case study
 enable researchers to experiment with the model, explore its potential or even
 modify the model for their applications.
-}
+\vspace{4pt}}
 
 \keywords{GRASS GIS, FUTURES, urbanization, land change, open science, simulation}
 
 \maketitle
 
-\section{INTRODUCTION}\label{INTRODUCTION}
 
+\newcommand{\normalniradky}{%
+\renewcommand{\baselinestretch}{0.96}%
+\selectfont%
+}
+
+\newcommand{\roztazeneradky}{%
+\renewcommand{\baselinestretch}{0.98}%
+\selectfont%
+}
+\section{INTRODUCTION}\label{INTRODUCTION}
+\roztazeneradky
 Population growth in cities worldwide drives changes in land use
 often negatively impacting the environments in which people live and undermining
 the resilience of local ecosystems.
@@ -92,7 +102,7 @@ in urbanizing regions \cite{Meentemeyer2012}.
 %
 The FUTURES model was successfully applied in several cases 
 including a study of land development dynamics in the rapidly
-expanding metropolitan region of Charlotte, North Carolina \cite{Meentemeyer2012} and an analysis of the impacts
+expanding metro\-po\-litan region of Charlotte, North Carolina \cite{Meentemeyer2012} and an analysis of the impacts
 of urbanization on natural resources under different conservation strategies \cite{Dorning2015}.
 Most recently, FUTURES was coupled with ecosystem services models to examine the impacts of projected urbanization and urban pattern on several
 ecosystem services and their trade-offs \cite{doug2016,Brian2016}.
@@ -143,7 +153,7 @@ streamlines data processing, provides opportunities to study urbanization on meg
 and allows for more reproducible research in the land change community. 
 We demonstrate this new version of FUTURES with a case study of the Asheville metropolitan area in North Carolina, USA.
 
-
+\normalniradky
 % must be open source to attract users chaudhuri2013sleuth
 
 
