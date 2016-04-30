@@ -372,7 +372,7 @@ FUNCTION {format.in.ed.booktitle}
 { booktitle empty$
     { "" }
     { editor empty$
-        { "In: " booktitle * }
+        { "In: " booktitle emphasize * }
         { "In: " format.editors.reverse * ", " * booktitle * }
       if$
     }
@@ -638,7 +638,7 @@ FUNCTION {article}
   if$
   new.block
   crossref missing$
-    { journal "journal" duplicate$ item.check
+    { journal  emphasize "journal" duplicate$ item.check
       pages empty$
         {
           output
@@ -673,7 +673,7 @@ FUNCTION {book}
   if$
   title.field field.used =
     { skip$ }
-    { format.btitle "title" output.check }
+    { format.btitle emphasize "title" output.check }
   if$
   new.block
   crossref missing$

@@ -479,7 +479,7 @@
    \vskip 4\p@
    \setbox\@tempboxa\hbox{#1: #2}%
    \ifdim \wd\@tempboxa >\hsize
-       #1: #2\par
+       #1: \centering#2\par
      \else
        \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
    \fi}
