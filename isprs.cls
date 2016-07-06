@@ -22,7 +22,7 @@
 \def\kurzfassungname{Kurzfassung}
 \def\resumename{R\'esum\'e}
 \def\commissionname{\bf{Commission}}
-\def\workinggroupname{\bf{WG}}
+\def\workinggroupname{\bf{}}
 \def\icwgname{\bf{ICWG}}
 \def\keywordsname{Key Words}
 
